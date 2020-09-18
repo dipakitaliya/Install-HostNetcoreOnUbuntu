@@ -162,3 +162,9 @@ Output
 2018-07-13 12:15:10,336 INFO success: dotnettest entered RUNNING state, process has stayed up for > than 1 secon
  ```
 
+## Check WWW Port listen
+```bash
+egrep -w '(80|22|443)/tcp' /etc/services	
+sudo lsof -i -P -n | grep LISTEN
+```
+
