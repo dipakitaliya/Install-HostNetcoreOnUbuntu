@@ -90,10 +90,10 @@ sudo vim hellomvc.conf
     RequestHeader set "X-Forwarded-Proto" expr=%{REQUEST_SCHEME}
 </VirtualHost>
 
-<VirtualHost *:8082>
+<VirtualHost *:8081>
  	ProxyPreserveHost On
-    ProxyPass / http://127.0.0.1:5001/
-    ProxyPassReverse / http://127.0.0.1:5001/
+    ProxyPass / http://127.0.0.1:5000/
+    ProxyPassReverse / http://127.0.0.1:5000/
 	
 	ErrorLog /var/log/apache2/promocollabapi-error.log
     CustomLog /var/log/apache2/promocollabapi-access.log common
