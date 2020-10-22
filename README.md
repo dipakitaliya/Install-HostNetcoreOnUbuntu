@@ -120,6 +120,7 @@ sudo apachectl configtest
  > If you get header is not valid sytext then run 
  ```bash
  a2enmod headers
+apache2ctl restart
  ```
  Restart Apache:
  ```bash
@@ -167,4 +168,11 @@ Output
 egrep -w '(80|22|443)/tcp' /etc/services	
 sudo lsof -i -P -n | grep LISTEN
 ```
+
+
+## You should enable proxy. Run a command:
+```bash
+ sudo a2enmod proxy
+ apache2ctl restart
+```bash
 
