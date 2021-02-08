@@ -168,7 +168,11 @@ Output
 egrep -w '(80|22|443)/tcp' /etc/services	
 sudo lsof -i -P -n | grep LISTEN
 ```
+## My Public IP
 
+```bash
+curl http://ifconfig.io
+```
 
 ## You should enable proxy. Run a command:
 ```bash
@@ -177,8 +181,4 @@ sudo lsof -i -P -n | grep LISTEN
 ```bash
 
 
-## My Public IP
 
-```Bash
-curl http://ifconfig.io
-```bash
