@@ -176,3 +176,9 @@ sudo lsof -i -P -n | grep LISTEN
  apache2ctl restart
 ```bash
 
+
+## My Public IP
+
+```Bash
+curl http://ifconfig.io
+```bash
