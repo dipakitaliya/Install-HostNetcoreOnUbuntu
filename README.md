@@ -45,6 +45,10 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password
 FLUSH PRIVILEGES;
 mysql -u root -p
 ```
+> If you want ad user with all access
+```shell
+ GRANT ALL PRIVILEGES ON *.* TO 'dbroot'@'localhost' IDENTIFIED BY 'admin123' WITH GRANT OPTION;
+```
 
 ## Install Apache as reverse proxy
 
