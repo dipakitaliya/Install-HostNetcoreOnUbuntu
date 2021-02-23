@@ -182,7 +182,41 @@ curl http://ifconfig.io
 ```bash
  sudo a2enmod proxy
  apache2ctl restart
-```bash
+```
 
 
+
+## Binding DNS
+
+ > Records
+
+| Type | Name | Value | TTL    
+| ------ | ------ | ------ | ------ |
+| A | @ | 	3.20.162.240 | 600 seconds 
+|CNAME |www |@ |	1 Hour
+|CNAME	|_domainconnect|	_domainconnect.gd.domaincontrol.com|	1 Hour
+| NS |	@|	ns77.domaincontrol.com |	1 Hour
+| NS |	@|	ns78.domaincontrol.com	| 1 Hour
+|SOA	|@|	Primary nameserver: ns77.domaincontrol.com...|	1 Hour
+|CNAME	|api|	ec2-3-20-162-240.us-east-2.compute.amazonaws.com...|	1 Hour
+
+> Change in APACHE2 .conf file
+ ```bash
+ <VirtualHost *:*>
+    RequestHeader set "X-Forwarded-Proto" expr=%{REQUEST_SCHEME}
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName promocollab.com
+    ServerAlias promocollab.com
+   
+    ProxyPreserveHost On
+    ProxyPass / http://127.0.0.1:5000/
+    ProxyPassReverse / http://127.0.0.1:5000/
+	
+	ErrorLog /var/log/apache2/promocollabapi-error.log
+    CustomLog /var/log/apache2/promocollabapi-access.log common
+</VirtualHost>
+ 
+ ```
 
