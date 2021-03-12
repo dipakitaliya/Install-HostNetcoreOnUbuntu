@@ -184,6 +184,12 @@ curl http://ifconfig.io
  apache2ctl restart
 ```
 
+## SSL CSR create apache Ubuntu
+```js
+mkdir ~/ssl
+cd ~/ssl
+openssl req -new -newkey rsa:2048 -nodes -keyout promocollab_key_tld.key -out promocollab_csr_tld.csr
+```
 
 
 ## Binding DNS
@@ -202,20 +208,40 @@ curl http://ifconfig.io
 
 > Change in APACHE2 .conf file
  ```bash
- <VirtualHost *:*>
-    RequestHeader set "X-Forwarded-Proto" expr=%{REQUEST_SCHEME}
-</VirtualHost>
+ <VirtualHost *:80>
+    ServerName api.nftmining.com
+    ServerAlias api.nftmining.com
 
-<VirtualHost *:80>
-    ServerName promocollab.com
-    ServerAlias promocollab.com
-   
-    ProxyPreserveHost On
-    ProxyPass / http://127.0.0.1:5000/
-    ProxyPassReverse / http://127.0.0.1:5000/
-	
-	ErrorLog /var/log/apache2/promocollabapi-error.log
-    CustomLog /var/log/apache2/promocollabapi-access.log common
+        RewriteEngine On
+        RewriteRule (.*) https://api.nftmining.com/ [R=301,L]
+
+    DocumentRoot /var/www/html/cg-backend-laravel/public
+    <Directory /var/www/html/cg-backend-laravel/public>
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/api-gotham.com-error.log
+    CustomLog ${APACHE_LOG_DIR}/api-gotham.com-access.log combined
+</VirtualHost>
+<VirtualHost *:443>
+ServerName api.nftmining.com
+#ServerAlias api.nftmining.com
+
+ DocumentRoot /var/www/html/cg-backend-laravel/public
+ <Directory /var/www/html/cg-backend-laravel/public>
+     Options -Indexes +FollowSymLinks
+     AllowOverride All
+ </Directory>
+
+ ErrorLog ${APACHE_LOG_DIR}/api-gotham.com-error.log
+ CustomLog ${APACHE_LOG_DIR}/api-gotham.com-access.log combined
+
+
+SSLEngine on
+SSLCertificateFile /root/ssl/__nftmining_com.crt
+SSLCertificateKeyFile /root/ssl/nftmining_tld.key
+SSLCertificateChainFile /root/ssl/__nftmining_com.ca-bundle
 </VirtualHost>
  
  ```
