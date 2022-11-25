@@ -251,3 +251,37 @@ SSLCertificateChainFile /root/ssl/__nftmining_com.ca-bundle
  
  ```
 
+
+## httpd init
+ > init /etc/supervisord.d/migrate.ini
+ ```bash
+ [program:migrationAPI]
+command=/usr/bin/dotnet /var/git/cg-rpgbackend-wct/MigrationToolAPI/bin/Debug/net6.0/MigrationToolAPI.dll --urls "http://*:5000"
+process_name=migrationAPIProcess ; process_name expr (default %(program_name)s)
+numprocs=1
+directory=/var/git/cg-rpgbackend-wct/MigrationToolAPI/
+;logfile=/var/log/supervisor/migrate.log
+;umask=022
+;priority=999
+;autostart=true
+;autorestart=true
+;startsecs=10
+;startretries=3
+;exitcodes=0,2
+;stopsignal=QUIT
+;stopwaitsecs=10
+;user=chrism
+;redirect_stderr=true
+stdout_logfile=/var/log/supervisor/migrate.log
+stdout_logfile_maxbytes=10MB
+stdout_logfile_backups=10
+stdout_capture_maxbytes=10MB
+;stdout_events_enabled=false
+;stderr_logfile=/a/path
+;stderr_logfile_maxbytes=1MB
+;stderr_logfile_backups=10
+;stderr_capture_maxbytes=1MB
+;stderr_events_enabled=false
+;environment=A=1,B=2
+;serverurl=AUTO
+ ```
