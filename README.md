@@ -285,3 +285,6 @@ stdout_capture_maxbytes=10MB
 ;environment=A=1,B=2
 ;serverurl=AUTO
  ```
+ 
+ > CertBoat installation
+  https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04
